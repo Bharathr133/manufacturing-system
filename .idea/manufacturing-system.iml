@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/api-gateway/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/api-gateway/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/eureka-server/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/eureka-server/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/machine-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/machine-service/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/production-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/production-service/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/quality-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/quality-service/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/api-gateway/target" />
+      <excludeFolder url="file://$MODULE_DIR$/eureka-server/target" />
+      <excludeFolder url="file://$MODULE_DIR$/machine-service/target" />
+      <excludeFolder url="file://$MODULE_DIR$/production-service/target" />
+      <excludeFolder url="file://$MODULE_DIR$/quality-service/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

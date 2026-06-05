@@ -1,0 +1,107 @@
+services:
+  # PostgreSQL for Machine Service
+  machine-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: machine_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - machine-db-data:/var/lib/postgresql/data
+
+  # PostgreSQL for Production Service
+  production-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: production_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - production-db-data:/var/lib/postgresql/data
+
+  # PostgreSQL for Quality Service
+  quality-db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: quality_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+    volumes:
+      - quality-db-data:/var/lib/postgresql/data
+
+  # Eureka Server
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+
+  # Machine Service
+  machine-service:
+    build: ./machine-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+      - machine-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://machine-db:5432/machine_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+  # Production Service
+  production-service:
+    build: ./production-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server
+      - production-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://production-db:5432/production_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+  # Quality Service
+  quality-service:
+    build: ./quality-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eureka-server
+      - quality-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://quality-db:5432/quality_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+  # API Gateway
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+  # Frontend
+  frontend:
+    build: C:/Users/Bharath/manufacturing-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-gateway
+
+volumes:
+  machine-db-data:
+  production-db-data:
+  quality-db-data:
